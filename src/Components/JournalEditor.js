@@ -82,9 +82,6 @@ const JournalEditor = () => {
       return alert("입력해주세요!");
     }
 
-    console.log(date);
-    console.log(emotion);
-    console.log(content);
     onCreate(date, content, emotion);
     // 일기 작성 페이지로 뒤로가기를 해서 다시 못 오게 막기
     navigate("/", { replace: true });

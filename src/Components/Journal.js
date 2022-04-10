@@ -60,7 +60,7 @@ const Journal = ({ id, date, emotion, content }) => {
 
   // id 값으로 네비게이트
   const goDetail = () => {
-    navigate(`/diary/${id}`);
+    navigate(`/journal/${id}`);
   };
   const goEdit = () => {
     navigate(`/edit/${id}`);

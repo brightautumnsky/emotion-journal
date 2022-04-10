@@ -79,7 +79,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/journal/:id" element={<Journal />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
             </Routes>
           </div>
         </BrowserRouter>

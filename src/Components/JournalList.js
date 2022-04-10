@@ -87,8 +87,8 @@ const JournalList = ({ journalList }) => {
         {/* 네비게이트 설정 */}
         <Button type="positive" text="작성" onClick={() => navigate("/new")} />
       </div>
-      {getComputedJournalList().map((journal) => (
-        <div className="journal-container">
+      {getComputedJournalList().map((journal, index) => (
+        <div className="journal-container" key={index}>
           <Journal
             id={journal.id}
             content={journal.content}
