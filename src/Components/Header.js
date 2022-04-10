@@ -10,15 +10,15 @@ const StyledHeader = styled.header`
   & > div {
     display: flex;
   }
-  .header__left {
+  .header-left {
     width: 25%;
     justify-content: start;
   }
-  .header__right {
+  .header-right {
     width: 25%;
     justify-content: end;
   }
-  .header__text {
+  .header-text {
     width: 50%;
     font-size: 21px;
     justify-content: center;
@@ -28,9 +28,9 @@ const StyledHeader = styled.header`
 const Header = ({ text, leftChild, rightChild }) => {
   return (
     <StyledHeader>
-      <div className="header__left">{leftChild}</div>
-      <div className="header__text">{text}</div>
-      <div className="header__right">{rightChild}</div>
+      <div className="header-left">{leftChild}</div>
+      <div className="header-text">{text}</div>
+      <div className="header-right">{rightChild}</div>
     </StyledHeader>
   );
 };

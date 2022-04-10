@@ -7,17 +7,17 @@ import Journal from "./Journal";
 
 const StyledJournalList = styled.div`
   padding: 30px 0 30px 0;
-  .menuContainer {
+  .menu-container {
     display: flex;
   }
-  .journalContainer {
+  .journal-container {
     margin-top: 30px;
     border-bottom: 1px solid lightgray;
     & + & {
       margin-top: 12px;
     }
   }
-  .menuEmptyBox {
+  .menu-empty-box {
     flex: 1;
   }
 `;
@@ -72,7 +72,7 @@ const JournalList = ({ journalList }) => {
 
   return (
     <StyledJournalList>
-      <div className="menuContainer">
+      <div className="menu-container">
         <ControlMenu
           value={sortType}
           onChange={setSortType}
@@ -83,12 +83,12 @@ const JournalList = ({ journalList }) => {
           onChange={setFilterType}
           optionList={filterList}
         />
-        <div className="menuEmptyBox"></div>
+        <div className="menu-empty-box"></div>
         {/* 네비게이트 설정 */}
         <Button type="positive" text="작성" onClick={() => navigate("/new")} />
       </div>
       {getComputedJournalList().map((journal) => (
-        <div className="journalContainer">
+        <div className="journal-container">
           <Journal
             id={journal.id}
             content={journal.content}

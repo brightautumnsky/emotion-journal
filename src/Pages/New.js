@@ -1,9 +1,10 @@
 import React from "react";
+import JournalEditor from "../Components/JournalEditor";
 
 const New = () => {
   return (
     <div>
-      <h1>New</h1>
+      <JournalEditor />
     </div>
   );
 };

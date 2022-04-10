@@ -8,22 +8,22 @@ const StyledJournal = styled.div`
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  .emotionBox {
+  .emotion-box {
     width: 120px;
     display: flex;
     justify-content: center;
     background-color: #ffb02e;
     border-radius: 6px;
-    .emotionImg {
+    .emotion-img {
       width: 60px;
       height: 60px;
       background-color: #ffb02e;
     }
   }
   /* 이미지마다 색이 다를 경우를 위해 클래스 나누기 */
-  .emotionBox--5 {
+  .emotion-box-5 {
   }
-  .journalMainBox {
+  .journal-main-box {
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -33,11 +33,11 @@ const StyledJournal = styled.div`
     & > div + div {
       margin-top: 10px;
     }
-    .journalContent {
+    .journal-content {
       padding-left: 3px;
     }
   }
-  .journalDate {
+  .journal-date {
     span {
       background: #efefef;
       padding: 3px 6px;
@@ -45,7 +45,7 @@ const StyledJournal = styled.div`
     }
   }
   @media screen and (max-width: 650px) {
-    .journalDate {
+    .journal-date {
       span {
         font-size: 12px;
       }
@@ -68,22 +68,22 @@ const Journal = ({ id, date, emotion, content }) => {
 
   return (
     <StyledJournal>
-      <div className={["emotionBox", `emotionBox--${emotion}`].join(" ")}>
+      <div className={["emotion-box", `emotion-box--${emotion}`].join(" ")}>
         <img
-          className="emotionImg"
+          className="emotion-img"
           src={targetEmotion}
           alt={`emotion-${emotion}`}
         />
       </div>
-      <div className="journalMainBox">
-        <div className="journalDate" onClick={goDetail}>
+      <div className="journal-main-box">
+        <div className="journal-date" onClick={goDetail}>
           <span>
             {`${targetDate.getFullYear()}년 
           ${targetDate.getMonth() + 1}월 
           ${targetDate.getDate()}일`}
           </span>
         </div>
-        <div className="journalContent">{content}</div>
+        <div className="journal-content">{content}</div>
       </div>
       <Button text="수정" onClick={goEdit}></Button>
     </StyledJournal>
