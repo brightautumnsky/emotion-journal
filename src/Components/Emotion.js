@@ -35,6 +35,7 @@ const StyledEmotion = styled.div`
 
 const Emotion = ({ id, img, des, emotion, onClick }) => {
   return (
+    // active를 props로 받아서 처리
     <StyledEmotion active={id === emotion} onClick={() => onClick(id)}>
       <img src={img} alt={`emotin-${id}`} />
       <p>{des}</p>

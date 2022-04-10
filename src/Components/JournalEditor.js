@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import Button from "./Button";
 import Emotion from "./Emotion";
+import { JournalDispatchContext } from "../App";
 
 const emotionList = [
   { id: 1, img: process.env.PUBLIC_URL + "assets/1.png", des: "행복" },
@@ -30,6 +31,26 @@ const StyledJournalEditor = styled.div`
       justify-content: space-between;
       width: 100%;
     }
+    .content-box {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      textarea {
+        width: 100%;
+        resize: none;
+        border: none;
+        background: #ececec;
+        min-height: 300px;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .btn-box {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px 0;
+    }
   }
 `;
 
@@ -39,11 +60,34 @@ const JournalEditor = () => {
     navigate(-1);
   };
 
+  // 일기 감정 상태
   const [emotion, setEmotion] = useState(null);
+  // 일기 내용 상태
+  const [content, setContent] = useState("");
+  const contentRef = useRef();
+  const { onCreate } = useContext(JournalDispatchContext);
 
   // 감정 변화
   const onClickEmotion = (emotion) => {
     setEmotion(emotion);
+  };
+  // 일기 내용 변화
+  const onChangeContent = (e) => {
+    setContent(e.target.value);
+  };
+  // 일기 내용 저장
+  const onSubmit = () => {
+    if (content.length < 1) {
+      contentRef.current.focus();
+      return alert("입력해주세요!");
+    }
+
+    console.log(date);
+    console.log(emotion);
+    console.log(content);
+    onCreate(date, content, emotion);
+    // 일기 작성 페이지로 뒤로가기를 해서 다시 못 오게 막기
+    navigate("/", { replace: true });
   };
 
   // 날짜 변환 함수
@@ -84,19 +128,33 @@ const JournalEditor = () => {
           onChange={onChangeDate}
           value={date}
         />
-        <section>
-          <div className="emotion-box">
-            {emotionList.map((em) => (
-              <Emotion
-                emotion={emotion}
-                id={em.id}
-                img={em.img}
-                des={em.des}
-                onClick={onClickEmotion}
-              />
-            ))}
-          </div>
-        </section>
+      </section>
+      <section>
+        <h4>오늘의 감정은 어떠세요?</h4>
+        <div className="emotion-box">
+          {emotionList.map((em, index) => (
+            <Emotion
+              key={index}
+              emotion={emotion}
+              id={em.id}
+              img={em.img}
+              des={em.des}
+              onClick={onClickEmotion}
+            />
+          ))}
+        </div>
+      </section>
+      <section>
+        <h4>오늘은 어떤 일이 일어났나요?</h4>
+        <div className="content-box">
+          <textarea onChange={onChangeContent} ref={contentRef} />
+        </div>
+      </section>
+      <section>
+        <div className="btn-box">
+          <Button text="취소" onClick={() => navigate(-1)} />
+          <Button text="저장" onClick={onSubmit} />
+        </div>
       </section>
     </StyledJournalEditor>
   );

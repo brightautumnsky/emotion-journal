@@ -13,7 +13,7 @@ const reducer = (state, action) => {
     case "INIT":
       return action.data;
     case "CREATE":
-      newState = [...state, action.data];
+      newState = [action.data, ...state];
       break;
     case "DELETE":
       newState = state.filter((item) => item.id !== action.targetId);
