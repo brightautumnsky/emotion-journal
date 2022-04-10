@@ -35,10 +35,6 @@ const Home = () => {
     }
   }, [journalList, currentDate]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const headerDate = `${currentDate.getFullYear()}년 ${
     currentDate.getMonth() + 1
   }월`;
@@ -70,7 +66,7 @@ const Home = () => {
         leftChild={<Button text="지난달" onClick={decreaseMonth} />}
         rightChild={<Button text="다음달" onClick={increaseMonth} />}
       />
-      <JournalList journalList={journalList} />
+      <JournalList journalList={data} />
     </div>
   );
 };
