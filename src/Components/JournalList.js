@@ -1,5 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import ControlMenu from "../Components/ControlMenu";
+import Button from "../Components/Button";
+import Journal from "./Journal";
+
+const StyledJournalList = styled.div`
+  padding: 30px 0 30px 0;
+  .menuContainer {
+    display: flex;
+  }
+  .journalContainer {
+    margin-top: 30px;
+    border-bottom: 1px solid lightgray;
+    & + & {
+      margin-top: 12px;
+    }
+  }
+  .menuEmptyBox {
+    flex: 1;
+  }
+`;
 
 const sortList = [
   { value: "latest", name: "최신순" },
@@ -13,6 +34,7 @@ const filterList = [
 ];
 
 const JournalList = ({ journalList }) => {
+  const navigate = useNavigate();
   const [sortType, setSortType] = useState("latest");
   const [filterType, setFilterType] = useState("all");
 
@@ -49,21 +71,33 @@ const JournalList = ({ journalList }) => {
   };
 
   return (
-    <div>
-      <ControlMenu
-        value={sortType}
-        onChange={setSortType}
-        optionList={sortList}
-      />
-      <ControlMenu
-        value={filterType}
-        onChange={setFilterType}
-        optionList={filterList}
-      />
+    <StyledJournalList>
+      <div className="menuContainer">
+        <ControlMenu
+          value={sortType}
+          onChange={setSortType}
+          optionList={sortList}
+        />
+        <ControlMenu
+          value={filterType}
+          onChange={setFilterType}
+          optionList={filterList}
+        />
+        <div className="menuEmptyBox"></div>
+        {/* 네비게이트 설정 */}
+        <Button type="positive" text="작성" onClick={() => navigate("/new")} />
+      </div>
       {getComputedJournalList().map((journal) => (
-        <div key={journal.id}>{journal.content}</div>
+        <div className="journalContainer">
+          <Journal
+            id={journal.id}
+            content={journal.content}
+            date={journal.date}
+            emotion={journal.emotion}
+          />
+        </div>
       ))}
-    </div>
+    </StyledJournalList>
   );
 };
 

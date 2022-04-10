@@ -5,9 +5,6 @@ import Home from "./Pages/Home";
 import Journal from "./Pages/Journal";
 import Edit from "./Pages/Edit";
 import New from "./Pages/New";
-import Button from "./Components/Button";
-import Header from "./Components/Header";
-import RouteLinkTest from "./Components/RouteLinkTest";
 
 const reducer = (state, action) => {
   let newState = [];
@@ -37,9 +34,9 @@ export const JournalDispatchContext = React.createContext();
 
 const testData = [
   { id: 1, emotion: 1, content: "test1: 일기", date: 1649579846175 },
-  { id: 2, emotion: 1, content: "test2: 일기", date: 1649579846176 },
-  { id: 3, emotion: 1, content: "test3: 일기", date: 1649579846177 },
-  { id: 4, emotion: 5, content: "test4: 일기", date: 1649579846178 },
+  { id: 2, emotion: 2, content: "test2: 일기", date: 1649579846176 },
+  { id: 3, emotion: 3, content: "test3: 일기", date: 1649579846177 },
+  { id: 4, emotion: 4, content: "test4: 일기", date: 1649579846178 },
   { id: 5, emotion: 5, content: "test5: 일기", date: 1649579846179 },
 ];
 
@@ -77,19 +74,6 @@ function App() {
       <JournalDispatchContext.Provider value={{ onCreate, onDelete, onEdit }}>
         <BrowserRouter>
           <div className="App">
-            <Header
-              text="header"
-              leftChild={
-                <Button
-                  text="left"
-                  type="positive"
-                  onClick={() => alert("left")}
-                />
-              }
-              rightChild={
-                <Button text="right" onClick={() => alert("right")} />
-              }
-            />
             {/* 라우팅 */}
             <Routes>
               <Route path="/" element={<Home />} />
@@ -97,7 +81,6 @@ function App() {
               <Route path="/new" element={<New />} />
               <Route path="/edit" element={<Edit />} />
             </Routes>
-            <RouteLinkTest />
           </div>
         </BrowserRouter>
       </JournalDispatchContext.Provider>

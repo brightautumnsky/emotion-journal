@@ -3,23 +3,23 @@ import styled, { css } from "styled-components";
 
 const btnTypes = {
   positive: {
-    color: "seagreen",
+    color: "#FFEEEE",
   },
   default: {
-    color: "#ececec",
+    color: "#F7E9D7",
   },
   negative: {
-    color: "red",
+    color: "#EBD8C3",
   },
 };
 
 const StyledButton = styled.button`
-  font-family: "Black Han Sans", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   cursor: pointer;
   border: none;
   border-radius: 5px;
   padding: 10px 20px 10px 20px;
-  font-size: 18px;
+  font-size: 16px;
   white-space: nowrap;
 
   /* type별 배경색 지정 */
@@ -28,6 +28,10 @@ const StyledButton = styled.button`
     css`
       background-color: ${btnTypes[type].color};
     `}
+
+  @media screen and (max-width: 650px) {
+    font-size: 13px;
+  }
 `;
 
 const Button = ({ type, text, onClick }) => {
