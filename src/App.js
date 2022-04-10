@@ -37,9 +37,9 @@ export const JournalDispatchContext = React.createContext();
 
 const testData = [
   { id: 1, emotion: 1, content: "test1: 일기", date: 1649579846175 },
-  { id: 2, emotion: 2, content: "test2: 일기", date: 1649579846176 },
-  { id: 3, emotion: 3, content: "test3: 일기", date: 1649579846177 },
-  { id: 4, emotion: 4, content: "test4: 일기", date: 1649579846178 },
+  { id: 2, emotion: 1, content: "test2: 일기", date: 1649579846176 },
+  { id: 3, emotion: 1, content: "test3: 일기", date: 1649579846177 },
+  { id: 4, emotion: 5, content: "test4: 일기", date: 1649579846178 },
   { id: 5, emotion: 5, content: "test5: 일기", date: 1649579846179 },
 ];
 
