@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./Button";
 
-const StyledJournal = styled.div`
+const StyledJournalItem = styled.div`
   padding: 12px 0;
   display: flex;
   align-items: center;
@@ -24,6 +24,9 @@ const StyledJournal = styled.div`
   .emotion-box-5 {
   }
   .journal-main-box {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -53,7 +56,7 @@ const StyledJournal = styled.div`
   }
 `;
 
-const Journal = ({ id, date, emotion, content }) => {
+const JournalItem = ({ id, date, emotion, content }) => {
   const targetDate = new Date(date);
   const targetEmotion = process.env.PUBLIC_URL + `assets/${emotion}.png`;
   const navigate = useNavigate();
@@ -67,7 +70,7 @@ const Journal = ({ id, date, emotion, content }) => {
   };
 
   return (
-    <StyledJournal>
+    <StyledJournalItem>
       <div className={["emotion-box", `emotion-box--${emotion}`].join(" ")}>
         <img
           className="emotion-img"
@@ -86,8 +89,8 @@ const Journal = ({ id, date, emotion, content }) => {
         <div className="journal-content">{content}</div>
       </div>
       <Button text="수정" onClick={goEdit}></Button>
-    </StyledJournal>
+    </StyledJournalItem>
   );
 };
 
-export default Journal;
+export default JournalItem;

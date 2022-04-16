@@ -22,6 +22,9 @@ const StyledHeader = styled.header`
     width: 50%;
     font-size: 21px;
     justify-content: center;
+    @media screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 `;
 

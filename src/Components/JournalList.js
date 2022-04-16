@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ControlMenu from "../Components/ControlMenu";
 import Button from "../Components/Button";
-import Journal from "./Journal";
+import JournalItem from "./JournalItem";
 
 const StyledJournalList = styled.div`
   padding: 30px 0 30px 0;
@@ -89,7 +89,7 @@ const JournalList = ({ journalList }) => {
       </div>
       {getComputedJournalList().map((journal, index) => (
         <div className="journal-container" key={index}>
-          <Journal
+          <JournalItem
             id={journal.id}
             content={journal.content}
             date={journal.date}

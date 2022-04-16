@@ -1,18 +1,12 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import Button from "./Button";
 import Emotion from "./Emotion";
 import { JournalDispatchContext } from "../App";
-
-const emotionList = [
-  { id: 1, img: process.env.PUBLIC_URL + "assets/1.png", des: "행복" },
-  { id: 2, img: process.env.PUBLIC_URL + "assets/2.png", des: "기쁨" },
-  { id: 3, img: process.env.PUBLIC_URL + "assets/3.png", des: "무난" },
-  { id: 4, img: process.env.PUBLIC_URL + "assets/4.png", des: "차분" },
-  { id: 5, img: process.env.PUBLIC_URL + "assets/5.png", des: "슬픔" },
-];
+import { getStringDate } from "../utils/date";
+import { emotionList } from "../utils/emotion";
 
 const StyledJournalEditor = styled.div`
   section {
@@ -54,7 +48,7 @@ const StyledJournalEditor = styled.div`
   }
 `;
 
-const JournalEditor = () => {
+const JournalEditor = ({ isEdit, journal }) => {
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -65,7 +59,9 @@ const JournalEditor = () => {
   // 일기 내용 상태
   const [content, setContent] = useState("");
   const contentRef = useRef();
-  const { onCreate } = useContext(JournalDispatchContext);
+  const { onCreate, onEdit } = useContext(JournalDispatchContext);
+  // 수정 모드 상태
+  const [editState, setEditState] = useState(false);
 
   // 감정 변화
   const onClickEmotion = (emotion) => {
@@ -82,27 +78,18 @@ const JournalEditor = () => {
       return alert("입력해주세요!");
     }
 
-    onCreate(date, content, emotion);
+    if (!emotion) {
+      return alert("감정을 선택해주세요!");
+    }
+
+    if (!isEdit) {
+      onCreate(date, content, emotion);
+    } else {
+      onEdit(journal.id, date, content, emotion);
+    }
+
     // 일기 작성 페이지로 뒤로가기를 해서 다시 못 오게 막기
     navigate("/", { replace: true });
-  };
-
-  // 날짜 변환 함수
-  const getStringDate = (date) => {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    if (month < 10) {
-      month = `0${month}`;
-    }
-
-    if (day < 10) {
-      day = `0${day}`;
-    }
-
-    // date 객체를 -로 나누는 string으로 변경
-    return [year, month, day].join("-");
   };
 
   const [date, setDate] = useState(getStringDate(new Date()));
@@ -111,10 +98,23 @@ const JournalEditor = () => {
     setDate(e.target.value);
   };
 
+  useEffect(() => {
+    // 수정 모드일 경우
+    if (isEdit) {
+      // 날짜를 targetJournal로
+      setDate(getStringDate(new Date(parseInt(journal.date))));
+      setEmotion(journal.emotion);
+      setContent(journal.content);
+
+      // 수정
+      setEditState(true);
+    }
+  }, [isEdit, journal]);
+
   return (
     <StyledJournalEditor>
       <Header
-        text="감정 일기 작성"
+        text={!isEdit ? "감정 일기 작성" : "감정 일기 수정"}
         leftChild={<Button text="앞으로" onClick={goBack} />}
       />
       <section>
@@ -133,9 +133,9 @@ const JournalEditor = () => {
             <Emotion
               key={index}
               emotion={emotion}
-              id={em.id}
-              img={em.img}
-              des={em.des}
+              id={em.e_id}
+              img={em.e_img}
+              des={em.e_des}
               onClick={onClickEmotion}
             />
           ))}
@@ -144,7 +144,11 @@ const JournalEditor = () => {
       <section>
         <h4>오늘은 어떤 일이 일어났나요?</h4>
         <div className="content-box">
-          <textarea onChange={onChangeContent} ref={contentRef} />
+          <textarea
+            value={content}
+            onChange={onChangeContent}
+            ref={contentRef}
+          />
         </div>
       </section>
       <section>

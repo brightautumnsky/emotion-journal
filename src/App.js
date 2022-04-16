@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { useReducer, useRef } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
@@ -8,12 +7,14 @@ import New from "./Pages/New";
 
 const reducer = (state, action) => {
   let newState = [];
+  console.log(action.data);
 
   switch (action.type) {
     case "INIT":
       return action.data;
     case "CREATE":
-      newState = [action.data, ...state];
+      const newJournal = { ...action.data };
+      newState = [...state, newJournal];
       break;
     case "DELETE":
       newState = state.filter((item) => item.id !== action.targetId);
@@ -32,16 +33,8 @@ const reducer = (state, action) => {
 export const JournalStateContext = React.createContext();
 export const JournalDispatchContext = React.createContext();
 
-const testData = [
-  { id: 1, emotion: 1, content: "test1: 일기", date: 1649579846175 },
-  { id: 2, emotion: 2, content: "test2: 일기", date: 1649579846176 },
-  { id: 3, emotion: 3, content: "test3: 일기", date: 1649579846177 },
-  { id: 4, emotion: 4, content: "test4: 일기", date: 1649579846178 },
-  { id: 5, emotion: 5, content: "test5: 일기", date: 1649579846179 },
-];
-
 function App() {
-  const [data, dispatch] = useReducer(reducer, testData);
+  const [data, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(0);
 
