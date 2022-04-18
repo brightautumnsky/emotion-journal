@@ -43,4 +43,4 @@ const Emotion = ({ id, img, des, emotion, onClick }) => {
   );
 };
 
-export default Emotion;
+export default React.memo(Emotion);

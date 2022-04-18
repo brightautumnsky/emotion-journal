@@ -25,4 +25,4 @@ const ControlMenu = ({ value, onChange, optionList }) => {
   );
 };
 
-export default ControlMenu;
+export default React.memo(ControlMenu);

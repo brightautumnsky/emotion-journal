@@ -1,4 +1,10 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
@@ -64,9 +70,10 @@ const JournalEditor = ({ isEdit, journal }) => {
   const [editState, setEditState] = useState(false);
 
   // 감정 변화
-  const onClickEmotion = (emotion) => {
+  const onClickEmotion = useCallback((emotion) => {
     setEmotion(emotion);
-  };
+    // emotion을 가져와서 setEmotion을 해주면 되기 때문에 최신의 state를 참조할 필요가 없다
+  }, []);
   // 일기 내용 변화
   const onChangeContent = (e) => {
     setContent(e.target.value);

@@ -93,4 +93,4 @@ const JournalItem = ({ id, date, emotion, content }) => {
   );
 };
 
-export default JournalItem;
+export default React.memo(JournalItem);
