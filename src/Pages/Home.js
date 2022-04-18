@@ -11,6 +11,11 @@ const Home = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = "감정 일기장";
+  }, []);
+
+  useEffect(() => {
     if (journalList.length >= 1) {
       // 첫 날
       const firstDay = new Date(

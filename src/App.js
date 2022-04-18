@@ -45,7 +45,9 @@ function App() {
         (a, b) => parseInt(b.id) - parseInt(a.id)
       );
       // 정렬 후 가장 큰 id 값의 + 1
-      dataId.current = parseInt(sortedJournalsData[0].id) + 1;
+      if (sortedJournalsData.length >= 1) {
+        dataId.current = parseInt(sortedJournalsData[0].id) + 1;
+      }
 
       dispatch({ type: "INIT", data: sortedJournalsData });
     }

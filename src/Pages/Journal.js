@@ -63,6 +63,11 @@ const Journal = () => {
   };
 
   useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = "감정 일기";
+  }, []);
+
+  useEffect(() => {
     if (journalList.length >= 1) {
       const targetJournal = journalList.find(
         (journal) => parseInt(journal.id) === parseInt(id)
