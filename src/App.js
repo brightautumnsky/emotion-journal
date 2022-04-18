@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Journal from "./Pages/Journal";
@@ -7,7 +7,6 @@ import New from "./Pages/New";
 
 const reducer = (state, action) => {
   let newState = [];
-  console.log(action.data);
 
   switch (action.type) {
     case "INIT":
@@ -27,6 +26,7 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+  localStorage.setItem("journals", JSON.stringify(newState));
   return newState;
 };
 
@@ -35,8 +35,21 @@ export const JournalDispatchContext = React.createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
-
   const dataId = useRef(0);
+
+  useEffect(() => {
+    const localJournalsData = JSON.parse(localStorage.getItem("journals"));
+
+    if (localJournalsData) {
+      const sortedJournalsData = localJournalsData.sort(
+        (a, b) => parseInt(b.id) - parseInt(a.id)
+      );
+      // 정렬 후 가장 큰 id 값의 + 1
+      dataId.current = parseInt(sortedJournalsData[0].id) + 1;
+
+      dispatch({ type: "INIT", data: sortedJournalsData });
+    }
+  }, []);
 
   const onCreate = (date, content, emotion) => {
     dispatch({

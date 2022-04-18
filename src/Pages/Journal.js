@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Components/Header";
-import { JournalStateContext } from "../App";
+import { JournalStateContext, JournalDispatchContext } from "../App";
 import Button from "../Components/Button";
 import { getStringDate } from "../utils/date";
 import { emotionList } from "../utils/emotion";
@@ -53,8 +53,14 @@ const Journal = () => {
   const { id } = useParams();
   const [journal, setJournal] = useState(null);
   const journalList = useContext(JournalStateContext);
+  const { onDelete } = useContext(JournalDispatchContext);
   const navigate = useNavigate();
   const [emotion, setEmotion] = useState(null);
+
+  const deleteJournal = (id) => {
+    onDelete(id);
+    navigate(-1);
+  };
 
   useEffect(() => {
     if (journalList.length >= 1) {
@@ -85,8 +91,9 @@ const Journal = () => {
           leftChild={<Button text="앞으로" onClick={() => navigate(-1)} />}
           rightChild={
             <Button
-              text="수정"
-              onClick={() => navigate(`/edit/${journal.id}`)}
+              text="삭제"
+              type="negative"
+              onClick={() => deleteJournal(journal.id)}
             />
           }
         />

@@ -9,7 +9,7 @@ const btnTypes = {
     color: "#F7E9D7",
   },
   negative: {
-    color: "#EBD8C3",
+    color: "pink",
   },
 };
 
